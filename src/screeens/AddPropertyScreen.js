@@ -1,14 +1,11 @@
 import React, { useState } from 'react'
-import { Col, Upload, message, Input, Button } from 'antd';
+import { Col, Upload, message, Input, Button, Carousel, Image, Row } from 'antd';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
 
 import { db, storage } from '../firebase/index';
 
-const getBase64 = (img, callback) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-};
 const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
@@ -23,24 +20,36 @@ const beforeUpload = (file) => {
 
 const AddPropertyScreen = () => {
     const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState();
+    const [floorArea, setFloorArea] = useState('');
+    const [bedrooms, setBedrooms] = useState('');
+    const [bathrooms, setBathrooms] = useState('');
     const [header, setHeader] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
+    const [imageUploadCount, setImageUploadCount] = useState(1);
+    const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
     const handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            setLoading(true);
-            return;
-        }
-        if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, (url) => {
-                setLoading(false);
-                setImageUrl(url);
-            });
-        }
+        setLoading(true);
+        const propertyImageRef = ref(storage, `images/${header}/${imageUploadCount.toString()}`);
+        const uploadTask = uploadBytesResumable(propertyImageRef, info.file.originFileObj);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {},
+            (err) => console.log(err),
+            () => {
+                // download url
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    let uploadedUrls = [...uploadedImageUrls, url];
+                    setUploadedImageUrls(uploadedUrls);
+                });
+            }
+        );
+
+        setLoading(false);
+        setImageUploadCount(imageUploadCount + 1);
     };
 
     const uploadButton = (
@@ -62,6 +71,38 @@ const AddPropertyScreen = () => {
         }
     }
 
+    const onFloorAreaChange = (e) => {
+        if(!isNaN(e.target.value)){
+            setFloorArea(e.target.value);
+        }
+    }
+
+    const onBedroomChange = (e) => {
+        if(!isNaN(e.target.value)){
+            setBedrooms(e.target.value);
+        }
+    }
+
+    const onBathroomChange = (e) => {
+        if(!isNaN(e.target.value)){
+            setBathrooms(e.target.value);
+        }
+    }
+
+    const postAd = async () => {
+        const docRef = await addDoc(collection(db, "properties"), {
+            title: header,
+            description: description,
+            price: parseInt(price),
+            location: location,
+            imageUrls: uploadedImageUrls,
+            floorArea: parseFloat(floorArea),
+            bedrooms: parseInt(bedrooms),
+            bathrooms: parseInt(bathrooms),
+            timestamp: serverTimestamp()
+        });
+    }
+
     return(
         <div>
 
@@ -70,27 +111,30 @@ const AddPropertyScreen = () => {
             </Col>
 
             <Col>
-                <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    showUploadList={false}
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    beforeUpload={beforeUpload}
-                    onChange={handleChange}
-                >
-                    {imageUrl ? (
-                        <img
-                            src={imageUrl}
-                            alt="avatar"
-                            style={{
-                                width: '100%',
-                            }}
-                        />
-                    ) : (
-                        uploadButton
-                    )}
-                </Upload>
+                    <Upload
+                        name="avatar"
+                        listType="picture-card"
+                        className="avatar-uploader"
+                        beforeUpload={beforeUpload}
+                        onChange={handleChange}
+                    >
+                        { uploadButton }
+                    </Upload>
+            </Col>
+
+            <Col>
+                <Carousel autoplay={true}>
+                    { uploadedImageUrls.map(img => {
+                        return(
+                            <div key={img}>
+                                <Image
+                                    width={600}
+                                    src={img}
+                                />
+                            </div>
+                        )
+                    }) }
+                </Carousel>
             </Col>
 
             <Col>
@@ -102,6 +146,18 @@ const AddPropertyScreen = () => {
             </Col>
 
             <Col>
+                <Input placeholder={'Floor Area'} value={ floorArea } onChange={ (e) => onFloorAreaChange(e) }/>
+            </Col>
+
+            <Col>
+                <Input placeholder={'Bedrooms'} value={ bedrooms } onChange={ (e) => onBedroomChange(e) }/>
+            </Col>
+
+            <Col>
+                <Input placeholder={'Bathrooms'} value={ bathrooms } onChange={ (e) => onBathroomChange(e) }/>
+            </Col>
+
+            <Col>
                 <Input placeholder={'Description'} value={ description } onChange={ (e) => setDescription(e.target.value) }/>
             </Col>
 
@@ -110,7 +166,7 @@ const AddPropertyScreen = () => {
             </Col>
 
             <Col>
-                <Button type="primary">Post</Button>
+                <Button type="primary" onClick={ postAd }>Post</Button>
             </Col>
 
         </div>

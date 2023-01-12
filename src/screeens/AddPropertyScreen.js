@@ -1,14 +1,10 @@
 import React, { useState } from 'react'
-import { Col, Upload, message, Input, Button } from 'antd';
+import { Col, Upload, message, Input, Button, Carousel, Image, Row } from 'antd';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
+import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 import { db, storage } from '../firebase/index';
 
-const getBase64 = (img, callback) => {
-    const reader = new FileReader();
-    reader.addEventListener('load', () => callback(reader.result));
-    reader.readAsDataURL(img);
-};
 const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
     if (!isJpgOrPng) {
@@ -28,19 +24,29 @@ const AddPropertyScreen = () => {
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
     const [location, setLocation] = useState('');
+    const [imageUploadCount, setImageUploadCount] = useState(1);
+    const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
 
     const handleChange = (info) => {
-        if (info.file.status === 'uploading') {
-            setLoading(true);
-            return;
-        }
-        if (info.file.status === 'done') {
-            // Get this url from response in real world.
-            getBase64(info.file.originFileObj, (url) => {
-                setLoading(false);
-                setImageUrl(url);
-            });
-        }
+        setLoading(true);
+        const propertyImageRef = ref(storage, `images/${header}/${imageUploadCount.toString()}`);
+        const uploadTask = uploadBytesResumable(propertyImageRef, info.file.originFileObj);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {},
+            (err) => console.log(err),
+            () => {
+                // download url
+                getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                    let uploadedUrls = [...uploadedImageUrls, url];
+                    setUploadedImageUrls(uploadedUrls);
+                });
+            }
+        );
+
+        setLoading(false);
+        setImageUploadCount(imageUploadCount + 1);
     };
 
     const uploadButton = (
@@ -70,27 +76,30 @@ const AddPropertyScreen = () => {
             </Col>
 
             <Col>
-                <Upload
-                    name="avatar"
-                    listType="picture-card"
-                    className="avatar-uploader"
-                    showUploadList={false}
-                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                    beforeUpload={beforeUpload}
-                    onChange={handleChange}
-                >
-                    {imageUrl ? (
-                        <img
-                            src={imageUrl}
-                            alt="avatar"
-                            style={{
-                                width: '100%',
-                            }}
-                        />
-                    ) : (
-                        uploadButton
-                    )}
-                </Upload>
+                    <Upload
+                        name="avatar"
+                        listType="picture-card"
+                        className="avatar-uploader"
+                        beforeUpload={beforeUpload}
+                        onChange={handleChange}
+                    >
+                        { uploadButton }
+                    </Upload>
+            </Col>
+
+            <Col>
+                <Carousel autoplay={true}>
+                    { uploadedImageUrls.map(img => {
+                        return(
+                            <div key={img}>
+                                <Image
+                                    width={600}
+                                    src={img}
+                                />
+                            </div>
+                        )
+                    }) }
+                </Carousel>
             </Col>
 
             <Col>

@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Col, Upload, message, Input, Button, Carousel, Image, Row } from 'antd';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
-import { ref, uploadBytes, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
 
 import { db, storage } from '../firebase/index';
 
@@ -19,7 +20,9 @@ const beforeUpload = (file) => {
 
 const AddPropertyScreen = () => {
     const [loading, setLoading] = useState(false);
-    const [imageUrl, setImageUrl] = useState();
+    const [floorArea, setFloorArea] = useState('');
+    const [bedrooms, setBedrooms] = useState('');
+    const [bathrooms, setBathrooms] = useState('');
     const [header, setHeader] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
@@ -68,6 +71,38 @@ const AddPropertyScreen = () => {
         }
     }
 
+    const onFloorAreaChange = (e) => {
+        if(!isNaN(e.target.value)){
+            setFloorArea(e.target.value);
+        }
+    }
+
+    const onBedroomChange = (e) => {
+        if(!isNaN(e.target.value)){
+            setBedrooms(e.target.value);
+        }
+    }
+
+    const onBathroomChange = (e) => {
+        if(!isNaN(e.target.value)){
+            setBathrooms(e.target.value);
+        }
+    }
+
+    const postAd = async () => {
+        const docRef = await addDoc(collection(db, "properties"), {
+            title: header,
+            description: description,
+            price: parseInt(price),
+            location: location,
+            imageUrls: uploadedImageUrls,
+            floorArea: parseFloat(floorArea),
+            bedrooms: parseInt(bedrooms),
+            bathrooms: parseInt(bathrooms),
+            timestamp: serverTimestamp()
+        });
+    }
+
     return(
         <div>
 
@@ -111,6 +146,18 @@ const AddPropertyScreen = () => {
             </Col>
 
             <Col>
+                <Input placeholder={'Floor Area'} value={ floorArea } onChange={ (e) => onFloorAreaChange(e) }/>
+            </Col>
+
+            <Col>
+                <Input placeholder={'Bedrooms'} value={ bedrooms } onChange={ (e) => onBedroomChange(e) }/>
+            </Col>
+
+            <Col>
+                <Input placeholder={'Bathrooms'} value={ bathrooms } onChange={ (e) => onBathroomChange(e) }/>
+            </Col>
+
+            <Col>
                 <Input placeholder={'Description'} value={ description } onChange={ (e) => setDescription(e.target.value) }/>
             </Col>
 
@@ -119,7 +166,7 @@ const AddPropertyScreen = () => {
             </Col>
 
             <Col>
-                <Button type="primary">Post</Button>
+                <Button type="primary" onClick={ postAd }>Post</Button>
             </Col>
 
         </div>

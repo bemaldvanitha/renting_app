@@ -1,7 +1,8 @@
 .property-box {
-    margin: auto;
     width: 60%;
     padding: 10px;
+    background: beige;
+    margin: 50px auto auto;
 }
 
 .input {

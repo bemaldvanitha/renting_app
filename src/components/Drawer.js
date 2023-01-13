@@ -4,7 +4,7 @@ import { MenuOutlined, HomeFilled, HeartFilled, BellFilled, MessageFilled, Idcar
 
 import '../styles/Drawer.css'
 
-const App = () => {
+const CusDrawer = () => {
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
@@ -61,4 +61,4 @@ const App = () => {
         </>
     );
 };
-export default App;
+export default CusDrawer;

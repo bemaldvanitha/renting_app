@@ -1,0 +1,29 @@
+.property-box {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+.input {
+    margin: 10px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.image-uploader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}

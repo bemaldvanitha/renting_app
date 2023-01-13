@@ -1,0 +1,21 @@
+.header {
+    position: sticky;
+    top: 0;
+    zIndex: 1;
+    width: 100%;
+    background: wheat;
+    padding-left: 10px;
+}
+
+.header-items {
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    font-family: "Comic Sans MS", serif;
+}
+
+.post-ad-button {
+    background: lightgrey;
+}

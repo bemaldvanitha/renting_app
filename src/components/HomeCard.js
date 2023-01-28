@@ -6,15 +6,12 @@ import { db } from '../firebase/index';
 import '../styles/Home.css';
 const { Meta } = Card;
 
-
-
-
-const AppCard = ({ filters }) => {
+const AppCard = ({ filters, search }) => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     fetchData();
-  },[ filters ]);
+  },[ filters, search ]);
 
   const fetchData = async () => {
     const querySnapshot = await getDocs(collection(db, "properties"));
@@ -26,6 +23,10 @@ const AppCard = ({ filters }) => {
 
       const cityFilter = filters.city;
       const priceFilters = filters.price.split('-');
+
+      if(!data.title.includes(search)){
+          return;
+      }
 
       if((data.location.toString() === cityFilter.toString()) || (parseInt(priceFilters[0]) < data.price &&
           parseInt(priceFilters[1]) > data.price) || (cityFilter.length === 0 && filters.price.length === 0)){
@@ -39,9 +40,8 @@ const AppCard = ({ filters }) => {
   return (
       properties.map((data) => {
         return(
-          <div className='card'>
-            <Card 
-                key={ data.id }
+          <div className='card' key={ data.id }>
+            <Card
                 style={{
                     width: 600,
                 }}

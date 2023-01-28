@@ -1,18 +1,28 @@
 import React, { useState } from 'react'
 import Search from './Search'
+import SearchBar from './SearchBar'
 import AppCard from './HomeCard'
+import { Input } from 'antd';
+//const { Search } = Input;
 
 import Image from '../assets/img/rent_house_73089751-5bfc333346e0fb002602ddbe.jpg';
 
 const HomeBanner = () => {
-    const [filters, setFilters] = useState({ city: '', price: '' } );
+    const [filters, setFilters] = useState({ city: '', price: '' });
+    const [search, setSearch] = useState('');
 
     const changeFilters = (city, price) => {
         setFilters({ city: city, price: price });
     }
 
+    const changeSearch = (searchTxt) => {
+        setSearch(searchTxt);
+    }
+
     return (
+
         <section className='h-full max-h-[640px] mb-8 xl:mb-24'>
+             <SearchBar changeSearchTxt={ changeSearch }/>
             <div className='flex flex-col lg:flex-row'>
                 <div className='lg:ml-8 xl:ml-[135px] flex flex-col items-center lg:items-start text-center lg:text-left justify-center flex-1 px-4 lg:px-0'>
                     <h1 className='text-4xl lg:text-[58px] font-semibold leading-none mb-6'>
@@ -29,8 +39,8 @@ const HomeBanner = () => {
                 </div>
             </div>
 
-            <Search changeFilters={ changeFilters }/>
-            <AppCard filters={ filters }/>
+            <Search changeFilters={ changeFilters } />
+            <AppCard filters={filters} search={ search }/>
         </section>
     )
 };

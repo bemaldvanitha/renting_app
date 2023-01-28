@@ -9,17 +9,12 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <div>
-
       <CusHeader />
+        <Routes>
+            <Route path='/' element={<HomeList />} />
+            <Route path='/add-property' element={<AddPropertyScreen />} />
 
-      <Routes>
-        <Route path='/' element={<HomeList />} />
-        <Route path='/property/:id' element={<AddPropertyScreen />} />
-
-
-      </Routes>
-
-      <AddPropertyScreen />
+        </Routes>
 
     </div>
   );

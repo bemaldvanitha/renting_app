@@ -1,77 +1,60 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { HeartOutlined } from '@ant-design/icons';
 import { Card, Rate, Tag } from 'antd';
-import Image from '../assets/img/th.jpg';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/index';
 const { Meta } = Card;
 
 
 const AppCard = () => {
   const [description, setDescription] = useState([]);
+  const [properties, setProperties] = useState([]);
 
-  window.addEventListener('load', () => {
-    Fetchdata();
-  });
+  useEffect(() => {
+    fetchData();
+  },[]);
 
-  const Fetchdata = async () => {
-    db.collection("properties");
-    const data = await db.get();
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, "properties"));
+    const allProperties = [];
 
-    data.docs.forEach(item => {
+    querySnapshot.forEach((doc) => {
+      const data = { ...doc.data() };
+      data.id = doc.id;
+      allProperties.push(data);
+    });
 
-      setDescription([...data, item.data()]);
-
-
-      //     const response=db.collection('properties');
-      //     const data=await response.get();
-      //     data.docs.forEach(item=>{
-      //      setDescription([...data,item.data()])
-    })
+    setProperties(allProperties);
   }
 
   return (
 
-    <Card
-      style={{
-        width: 300,
-      }}
-      cover={
-        <img src={Image} alt='' />
-      }
-      actions={[
-        <Rate />,
-        <HeartOutlined />,
-      ]}
-    >
+      properties.map((data) => {
+        return(
+            <Card
+                key={ data.id }
+                style={{
+                    width: 600,
+                }}
+                cover={
+                  <img src={ data.imageUrls[0] } alt={ data.title } />
+                }
+                actions={[
+                  <Rate />,
+                  <HeartOutlined />,
+                ]}
+            >
+                <Meta
+                        title={ data.title }
+                        description={ data.description.substring(0,20)  }
+                    />
+                <Tag color="red">Price: { data.price }</Tag>
 
-      {
-            description.map((data) => (
-        <Meta
-          title={data.title}
-          description={data.description}
-        />
-            ))
-      }
-      <Tag color="red">Price: 5000</Tag>
-
-    </Card>
-    
+            </Card>
+        )
+      })
 
     );
 }
-// const Frame = ({ title, description }) => {
-//   console.log(title + " " + description);
-//   return (
-//     description.map((data) => (
-  
- 
-  
-//     <Meta>
-//       <div className="div">
-//         <p>title : {data.title}</p>
-//         <p>Description: {data.description}</p>
-//       </div></Meta>
-//   ))
-//   );
 
 export default AppCard;

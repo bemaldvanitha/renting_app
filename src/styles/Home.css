@@ -1,0 +1,12 @@
+.card{
+    align-items: center;
+    margin: 10px auto auto;
+    justify-content: center;
+    padding: 10px;
+    display: inline;
+    width: 50%;
+}
+.dropdown{
+    align-items: center;
+    justify-content: center;
+}

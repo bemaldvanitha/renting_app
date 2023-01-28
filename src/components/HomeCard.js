@@ -3,7 +3,10 @@ import { HeartOutlined } from '@ant-design/icons';
 import { Card, Rate, Tag } from 'antd';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/index';
+import '../styles/Home.css';
 const { Meta } = Card;
+
+
 
 
 const AppCard = ({ filters }) => {
@@ -34,10 +37,10 @@ const AppCard = ({ filters }) => {
   }
 
   return (
-
       properties.map((data) => {
         return(
-            <Card
+          <div className='card'>
+            <Card 
                 key={ data.id }
                 style={{
                     width: 600,
@@ -57,6 +60,7 @@ const AppCard = ({ filters }) => {
                 <Tag color="red">Price: { data.price }</Tag>
 
             </Card>
+            </div>
         )
       })
 

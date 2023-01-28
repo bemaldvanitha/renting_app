@@ -1,7 +1,8 @@
 import React, { useContext,useState} from 'react'
-import {HouseContext} from './HouseContext';
 import {Menu, Dropdown, Space, Select} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
+import '../styles/Home.css';
+
 
 const PriceDropdown = ({ changeFilter }) => {
 
@@ -34,13 +35,14 @@ const PriceDropdown = ({ changeFilter }) => {
     }
 
   return (
+    <div className='dropdown'>
       <Select
           showSearch
           style={{
               width: 200,
           }}
           onSelect={ (e) => itemSelect(e) }
-          placeholder="Search to Select City"
+          placeholder="Search to Select Price"
           optionFilterProp="children"
           filterOption={(input, option) => (option?.label ?? '').includes(input)}
           filterSort={(optionA, optionB) =>
@@ -48,6 +50,7 @@ const PriceDropdown = ({ changeFilter }) => {
           }
           options={ options }
       />
+      </div>
   );
 };
 

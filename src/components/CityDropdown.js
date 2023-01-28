@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Menu , Dropdown,  Space, Select } from 'antd';
+import '../styles/Home.css';
 
 const CityDropdown = ({ changeFilter }) => {
 
@@ -36,6 +37,7 @@ const CityDropdown = ({ changeFilter }) => {
       }
 
   return (
+    <div className='dropdown'>
     <Select
         showSearch
         style={{
@@ -50,6 +52,7 @@ const CityDropdown = ({ changeFilter }) => {
         }
         options={ options }
     />
+    </div>
   );
 
 };

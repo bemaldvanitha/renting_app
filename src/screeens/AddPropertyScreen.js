@@ -3,7 +3,6 @@ import { Col, Upload, message, Input, Button, Carousel, Image, Row } from 'antd'
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
-
 import { db, storage } from '../firebase/index';
 
 import '../styles/AddPropertyScreen.css';
@@ -92,7 +91,7 @@ const AddPropertyScreen = () => {
     }
 
     const postAd = async () => {
-        const docRef = await addDoc(collection(db, "properties"), {
+       addDoc(collection(db, "properties"), {
             title: header,
             description: description,
             price: parseInt(price),

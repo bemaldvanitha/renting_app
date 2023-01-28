@@ -1,11 +1,16 @@
-import React, { } from 'react'
+import React, { useState } from 'react'
 import Search from './Search'
 import AppCard from './HomeCard'
-
 
 import Image from '../assets/img/rent_house_73089751-5bfc333346e0fb002602ddbe.jpg';
 
 const HomeBanner = () => {
+    const [filters, setFilters] = useState({ city: '', price: '' } );
+
+    const changeFilters = (city, price) => {
+        setFilters({ city: city, price: price });
+    }
+
     return (
         <section className='h-full max-h-[640px] mb-8 xl:mb-24'>
             <div className='flex flex-col lg:flex-row'>
@@ -23,8 +28,9 @@ const HomeBanner = () => {
                     <img src={Image} alt='' />
                 </div>
             </div>
-            < Search />
-            < AppCard />
+
+            <Search changeFilters={ changeFilters }/>
+            <AppCard filters={ filters }/>
         </section>
     )
 };

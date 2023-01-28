@@ -1,54 +1,54 @@
 import React, { useContext,useState} from 'react'
 import {HouseContext} from './HouseContext';
-import { Menu , Dropdown,  Space} from 'antd';
+import {Menu, Dropdown, Space, Select} from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-const PriceDropdown = () => {
-  const price=useContext(HouseContext);
-   const setPrice=useContext(HouseContext);
- 
-   const[isOpen,setIsOpen] = useState(false);
+const PriceDropdown = ({ changeFilter }) => {
 
-   const items = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer">
-          Rs 4000 - 8000
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" >
-            Rs 8000 - 15000
-        </a>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <a target="_blank" rel="noopener noreferrer" >
-           over than 15000
-        </a>
-      ),
-    },
-  ];
-  return <Menu as='div' className='dropdown relative'>
-  <Dropdown
-    menu={{
-      items,
-    }}
-  >
-    <a onClick={(e) => e.preventDefault()}>
-      <Space>
-       Price range
-        <DownOutlined />
-      </Space>
-    </a>
-  </Dropdown>
-  </Menu>;
+    const options = [
+        {
+            value: '1',
+            label: '0 - 5000',
+        },
+        {
+            value: '2',
+            label: '5000 - 10000',
+        },
+        {
+            value: '3',
+            label: '10000 - 15000',
+        },
+        {
+            value: '4',
+            label: '15000 - 20000',
+        },
+        {
+            value: '5',
+            label: '20000 - 100000',
+        }
+    ];
+
+    const itemSelect = (value) => {
+        const priceRange = options.find(option => option.value.toString() === value.toString()).label;
+        changeFilter(priceRange);
+    }
+
+  return (
+      <Select
+          showSearch
+          style={{
+              width: 200,
+          }}
+          onSelect={ (e) => itemSelect(e) }
+          placeholder="Search to Select City"
+          optionFilterProp="children"
+          filterOption={(input, option) => (option?.label ?? '').includes(input)}
+          filterSort={(optionA, optionB) =>
+              (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+          }
+          options={ options }
+      />
+  );
 };
 
 export default PriceDropdown;

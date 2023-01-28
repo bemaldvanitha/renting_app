@@ -6,13 +6,12 @@ import { db } from '../firebase/index';
 const { Meta } = Card;
 
 
-const AppCard = () => {
-  const [description, setDescription] = useState([]);
+const AppCard = ({ filters }) => {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
     fetchData();
-  },[]);
+  },[ filters ]);
 
   const fetchData = async () => {
     const querySnapshot = await getDocs(collection(db, "properties"));
@@ -21,7 +20,14 @@ const AppCard = () => {
     querySnapshot.forEach((doc) => {
       const data = { ...doc.data() };
       data.id = doc.id;
-      allProperties.push(data);
+
+      const cityFilter = filters.city;
+      const priceFilters = filters.price.split('-');
+
+      if((data.location.toString() === cityFilter.toString()) || (parseInt(priceFilters[0]) < data.price &&
+          parseInt(priceFilters[1]) > data.price) || (cityFilter.length === 0 && filters.price.length === 0)){
+          allProperties.push(data);
+      }
     });
 
     setProperties(allProperties);

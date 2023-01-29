@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Search from './Search'
-import SearchBar from './SearchBar'
 import AppCard from './HomeCard'
 import { Input } from 'antd';
 //const { Search } = Input;

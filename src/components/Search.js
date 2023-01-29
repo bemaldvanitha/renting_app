@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import CityDropdown from './CityDropdown'
 import PriceDropdown from './PriceDropdown'
 
-
-
 const Search = ({ changeFilters }) => {
     const [cityFilter, setCityFilter] = useState('');
     const [priceFilter, setPriceFilter] = useState('');

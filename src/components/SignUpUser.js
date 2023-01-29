@@ -1,59 +1,60 @@
 import React, { useState } from 'react';
-import { useFirebase } from 'react-redux-firebase';
+import { Input, Button } from 'antd';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import { db } from '../firebase/index';
+import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
 
 function SignUpUser() {
-  const firebase = useFirebase();
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
 
-  const handleSignUp = () => {
-    if (password !== reEnterPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-    firebase.createUser({ email, password }, {
-      email: email,
-      mobileNumber: mobileNumber
-    })
+  const handleSignUp = async () => {
+      const auth = getAuth();
+
+        if (password !== reEnterPassword) {
+          alert("Passwords do not match!");
+          return;
+        }
+
+        try{
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            const docRef = await addDoc(collection(db, "users"), {
+                userName: userName,
+                email: email,
+                uid: user.uid,
+                mobileNumber: mobileNumber,
+                type: 'user',
+                timestamp: serverTimestamp()
+            });
+
+            console.log('user created');
+
+        }catch (error){
+            const errorCode = error.code;
+            const errorMessage = error.message;
+
+        }
   }
 
   return (
     <div>
       <h3>Sign Up as a User</h3>
-      <input
-        type="text"
-        placeholder="User Name"
-        value={userName}
-        onChange={e => setUserName(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="email"
-        value={email}
-        onChange={e => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        value={password}
-        onChange={e => setPassword(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="re-enter password"
-        value={reEnterPassword}
-        onChange={e => setReEnterPassword(e.target.value)}
-      />
-      <input
-        type="tel"
-        placeholder="mobile number"
-        value={mobileNumber}
-        onChange={e => setMobileNumber(e.target.value)}
-      />
-      <button onClick={handleSignUp}>Sign Up</button>
+        <Input value={userName} onChange={e => setUserName(e.target.value)} id={'user-name'}
+               placeholder={'Enter your user name'}/>
+        <Input value={email} onChange={e => setEmail(e.target.value)} id={'email'}
+               placeholder={'Enter your email'}/>
+        <Input.Password value={password} onChange={e => setPassword(e.target.value)} id={'password'}
+               placeholder={'Enter your password'}/>
+        <Input.Password value={reEnterPassword} onChange={e => setReEnterPassword(e.target.value)} id={'re-password'}
+               placeholder={'Reenter your password'}/>
+      <Input value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} id={'mobile-number'}
+             placeholder={'Enter your mobile number'}/>
+      <Button onClick={handleSignUp}>Sign Up</Button>
     </div>
   );
 }

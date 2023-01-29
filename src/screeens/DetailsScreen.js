@@ -43,8 +43,8 @@ const DetailsScreen = () => {
                               return(
                                   <div key={img}>
                                       <Image
-                                          width={500}
-                                          height={500}
+                                          width={600}
+                                          height={400}
                                           src={img}
                                       />
                                   </div>

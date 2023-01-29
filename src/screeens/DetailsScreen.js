@@ -30,38 +30,38 @@ const DetailsScreen = () => {
 
   return (
       <div>
+          { Object.keys(property).length !== 0 ?
+              <Card
+                  style={{
+                      width: 1000,
 
-<Card
-    style={{
-      width: 1000,
-      
-    }}
-    cover={ 
-                <Carousel autoplay={true}>
-                    { property.imageUrls.map(img => {
-                        return(
-                            <div key={img}>
-                                <Image
-                                    width={400}
-                                    src={img}
-                                />
-                            </div>
-                        )
-                    }) }
-                </Carousel>    
-    }
-   
-  >
-    <Meta
-      title= {property.title}
-      description={property.description}
-    />
-    <p>Bathrooms : {property.bathrooms}</p>
-    <p>Bedrooms : {property.bedrooms}</p>
-    <p>Location : {property.location}</p>
-    <p>price : {property.price} LKR</p>
-  </Card>
+                  }}
+                  cover={
+                      <Carousel autoplay={true}>
+                          { property.imageUrls.map(img => {
+                              return(
+                                  <div key={img}>
+                                      <Image
+                                          width={400}
+                                          src={img}
+                                      />
+                                  </div>
+                              )
+                          }) }
+                      </Carousel>
+                  }
 
+              >
+                  <Meta
+                      title= {property.title}
+                      description={property.description}
+                  />
+                  <p>Bathrooms : {property.bathrooms}</p>
+                  <p>Bedrooms : {property.bedrooms}</p>
+                  <p>Location : {property.location}</p>
+                  <p>price : {property.price} LKR</p>
+                </Card> : <div></div>
+          }
       </div>
     );
 }

@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import Search from './Search'
 import AppCard from './HomeCard'
-import { Input } from 'antd';
-//const { Search } = Input;
+import SearchBar from "./SearchBar";
 
 import Image from '../assets/img/rent_house_73089751-5bfc333346e0fb002602ddbe.jpg';
 

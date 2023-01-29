@@ -30,10 +30,11 @@ const DetailsScreen = () => {
 
   return (
       <div>
+        <center>
           { Object.keys(property).length !== 0 ?
               <Card
                   style={{
-                      width: 1000,
+                      width: 900,
 
                   }}
                   cover={
@@ -42,7 +43,8 @@ const DetailsScreen = () => {
                               return(
                                   <div key={img}>
                                       <Image
-                                          width={400}
+                                          width={500}
+                                          height={500}
                                           src={img}
                                       />
                                   </div>
@@ -56,12 +58,12 @@ const DetailsScreen = () => {
                       title= {property.title}
                       description={property.description}
                   />
-                  <p>Bathrooms : {property.bathrooms}</p>
-                  <p>Bedrooms : {property.bedrooms}</p>
                   <p>Location : {property.location}</p>
-                  <p>price : {property.price} LKR</p>
+                  <p>Bedrooms : {property.bedrooms}  |   Bathrooms : {property.bathrooms} </p>
+                  <p>Price : {property.price} LKR</p>
                 </Card> : <div></div>
           }
+          </center>
       </div>
     );
 }

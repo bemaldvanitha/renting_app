@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import CityDropdown from './CityDropdown'
-import CategoryDropdown from './CategoryDropdown'
 import PriceDropdown from './PriceDropdown'
 
 

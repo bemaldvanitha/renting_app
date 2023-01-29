@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, Carousel, Image, Col, Avatar } from 'antd';
+import { Card, Carousel, Image, Button } from 'antd';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/index';
 
@@ -58,9 +58,12 @@ const DetailsScreen = () => {
                       title= {property.title}
                       description={property.description}
                   />
+                  <p> 
+                  <Button type="primary">Price : {property.price} LKR</Button>
+                    </p>
                   <p>Location : {property.location}</p>
                   <p>Bedrooms : {property.bedrooms}  |   Bathrooms : {property.bathrooms} </p>
-                  <p>Price : {property.price} LKR</p>
+                  
                 </Card> : <div></div>
           }
           </center>

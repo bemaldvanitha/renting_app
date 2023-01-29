@@ -1,71 +1,35 @@
 import React, { useState, useEffect } from 'react'
-import { HeartOutlined } from '@ant-design/icons';
-import { Card, Rate, Tag } from 'antd';
-import { collection, getDocs } from 'firebase/firestore';
+import {  } from 'antd';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/index';
-const { Meta } = Card;
 
 const DetailsScreen = () => {
-
-const AppCard = ({ filters }) => {
-  const [properties, setProperties] = useState([]);
+  const [property, setProperty] = useState({});
+  const [error, setError] = useState('');
 
   useEffect(() => {
     fetchData();
-  },[ filters ]);
+  },[]);
 
   const fetchData = async () => {
-    const querySnapshot = await getDocs(collection(db, "properties"));
-    const allProperties = [];
+      setError('');
+      const docRef = doc(db, "properties", "0AlGkrDhIoUaQKoCDnsp");
+      const docSnap = await getDoc(docRef);
 
-    querySnapshot.forEach((doc) => {
-      const data = { ...doc.data() };
-      data.id = doc.id;
-
-      const cityFilter = filters.city;
-      const priceFilters = filters.price.split('-');
-
-      if((data.location.toString() === cityFilter.toString()) || (parseInt(priceFilters[0]) < data.price &&
-          parseInt(priceFilters[1]) > data.price) || (cityFilter.length === 0 && filters.price.length === 0)){
-          allProperties.push(data);
+      if (docSnap.exists()) {
+          const house = { ...docSnap.data() };
+          house.id = docSnap.id;
+          setProperty(house);
+      } else {
+          setError('No Property Found');
       }
-    });
-
-    setProperties(allProperties);
   }
 
- 
-
   return (
+      <div>
 
-      properties.map((data) => {
-        return(
-            <Card
-                key={ data.id }
-                style={{
-                    width: 600,
-                }}
-                cover={
-                  <img src={ data.imageUrls[0] } alt={ data.title } />
-                }
-                actions={[
-                  <Rate />,
-                  <HeartOutlined />,
-                ]}
-            >
-                <Meta
-                        title={ data.title }
-                        description={ data.description.substring(0,20)  }
-                    />
-                <Tag color="red">Price: { data.price }</Tag>
-
-            </Card>
-        )
-      })
-      
-
+      </div>
     );
-}
 }
 
 export default DetailsScreen;

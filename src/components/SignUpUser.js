@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Input, Button } from 'antd';
+import {Input, Button, Alert} from 'antd';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../firebase/index';
 import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
@@ -10,9 +10,12 @@ function SignUpUser() {
   const [password, setPassword] = useState('');
   const [reEnterPassword, setReEnterPassword] = useState('');
   const [mobileNumber, setMobileNumber] = useState('');
+  const [alertMsg, setAlertMsg] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleSignUp = async () => {
       const auth = getAuth();
+      setIsError(false);
 
         if (password !== reEnterPassword) {
           alert("Passwords do not match!");
@@ -35,9 +38,10 @@ function SignUpUser() {
             console.log('user created');
 
         }catch (error){
+            setIsError(true);
             const errorCode = error.code;
             const errorMessage = error.message;
-
+            setAlertMsg(errorMessage);
         }
   }
 
@@ -55,6 +59,7 @@ function SignUpUser() {
       <Input value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} id={'mobile-number'}
              placeholder={'Enter your mobile number'}/>
       <Button onClick={handleSignUp}>Sign Up</Button>
+        { isError && <Alert message={ alertMsg } type="error" /> }
     </div>
   );
 }

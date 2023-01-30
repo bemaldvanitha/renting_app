@@ -1,0 +1,21 @@
+.input-feild-email{
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+.input-feild-pw{
+    padding-bottom: 30px;
+}
+.layout{
+  background-contain:100%;
+    
+}
+.container{
+    background-image: url(../assets/istockphoto-493878624-170667a.jpg);
+    background-repeat: repeat;
+    background-size: cover;
+  }
+  .signIn{
+    padding-bottom: 50px;
+
+  }
+  

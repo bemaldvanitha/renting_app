@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Input, Button, Alert,Layout ,Form,Space,Divider } from 'antd';
+import { Input, Button, Alert,Layout ,Form,Space } from 'antd';
+import { useNavigate, Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
@@ -7,6 +8,7 @@ import '../styles/SignIn.css';
 const {  Content } = Layout;
 
 function SignUpHost() {
+  const navigate = useNavigate();
   const [hostName, setHostName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -38,6 +40,7 @@ function SignUpHost() {
       });
 
       console.log('user created');
+      navigate('/');
 
     } catch (error) {
       setIsError(true);
@@ -79,7 +82,10 @@ function SignUpHost() {
                   placeholder={'Enter your mobile number'} /></Space></div>
 
                 <Button onClick={handleSignUp} style={{backgroundColor:'#ae2012',color:'white',width:'260px'}}>Sign Up</Button></div>
-                {isError && <Alert message={alertMsg} type="error" />}
+              <Link to={'/sign-in'}>
+                <p className='new-account'>Already have an account</p>
+              </Link>
+              {isError && <Alert message={alertMsg} type="error" />}
               
             </Form>
           </Content>

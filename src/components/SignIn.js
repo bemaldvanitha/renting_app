@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { Input, Button, Alert,Layout ,Form} from 'antd';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import '../styles/SignIn.css';
@@ -6,6 +7,7 @@ const {  Content } = Layout;
 
 
 function SignIn() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [alertMsg, setAlertMsg] = useState('');
@@ -17,7 +19,8 @@ function SignIn() {
 
       signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
               const user = userCredential.user;
-              console.log('sign in')
+              console.log('sign in');
+              navigate('/');
 
       }).catch((error) => {
           setIsError(true);
@@ -45,7 +48,9 @@ function SignIn() {
       </div>
       <div className='signIn'>
       <Button onClick={handleSubmit} style={{backgroundColor:'#ae2012',color:'white',width:'260px'}}>Sign In</Button>
-      <p className='new-account'>Create New Account</p>
+          <Link to={'/sign-up'}>
+              <p className='new-account'>Create New Account</p>
+          </Link>
       
       </div>
         { isError && <Alert message={ alertMsg } type="error" /> }

@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Input, Button, Alert, Layout, Form, Space, Divider } from 'antd';
+import { Input, Button, Alert, Layout, Form, Space } from 'antd';
+import { useNavigate, Link } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { db } from '../firebase/index';
 import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
 import '../styles/SignIn.css';
-import { AlignCenterOutlined } from '@ant-design/icons';
 const { Content } = Layout;
 
 function SignUpUser() {
+  const navigate = useNavigate();
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,6 +40,7 @@ function SignUpUser() {
       });
 
       console.log('user created');
+      navigate('/');
 
     } catch (error) {
       setIsError(true);
@@ -79,6 +81,9 @@ function SignUpUser() {
                     <Input value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} id={'mobile-number'}
                       placeholder={'Enter your mobile number'} /> </Space></div>
                 <Button onClick={handleSignUp} style={{ backgroundColor: '#ae2012', color: 'white', width: '260px', alignContent: 'center' }}>Sign Up</Button></div>
+              <Link to={'/sign-in'}>
+                <p className='new-account'>Already have an account</p>
+              </Link>
               {isError && <Alert message={alertMsg} type="error" />}
 
             </Form>

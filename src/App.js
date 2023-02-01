@@ -12,6 +12,8 @@ function App() {
     <div>
         <CusHeader/>
       <SignIn/>
+      <SignUpHost/>
+      <SignUpUser/>
     </div>
   );
 }

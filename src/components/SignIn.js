@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input, Button, Alert,Layout ,Form} from 'antd';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import '../styles/SignIn.css'
+import '../styles/SignIn.css';
 const {  Content } = Layout;
 
 
@@ -44,7 +44,10 @@ function SignIn() {
                           onChange={(e) => setPassword(e.target.value)} />
       </div>
       <div className='signIn'>
-      <Button onClick={handleSubmit} style={{backgroundColor:'#ae2012',color:'white',width:'270px'}}>Sign In</Button></div>
+      <Button onClick={handleSubmit} style={{backgroundColor:'#ae2012',color:'white',width:'260px'}}>Sign In</Button>
+      <p className='new-account'>Create New Account</p>
+      
+      </div>
         { isError && <Alert message={ alertMsg } type="error" /> }
         </Form>
         </Content>

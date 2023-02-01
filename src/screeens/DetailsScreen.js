@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom';
 import { Card, Carousel, Image, Button } from 'antd';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/index';
@@ -7,6 +8,7 @@ const { Meta } = Card;
 const DetailsScreen = () => {
   const [property, setProperty] = useState({});
   const [error, setError] = useState('');
+  const { id } = useParams();
 
   useEffect(() => {
     fetchData();
@@ -14,7 +16,7 @@ const DetailsScreen = () => {
 
   const fetchData = async () => {
       setError('');
-      const docRef = doc(db, "properties", "0AlGkrDhIoUaQKoCDnsp");
+      const docRef = doc(db, "properties", `${id}`);
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {

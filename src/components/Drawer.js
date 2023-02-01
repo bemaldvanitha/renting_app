@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Drawer, Row, Col } from 'antd';
 import { MenuOutlined, HomeFilled, HeartFilled, BellFilled, MessageFilled, IdcardFilled } from '@ant-design/icons';
 
@@ -19,10 +20,14 @@ const CusDrawer = () => {
             <Drawer title="Instant Stays" placement="left" onClose={onClose} open={open}>
                 <Row className={'item'}>
                     <Col span={4}>
-                        <HomeFilled style={{ fontSize: '200%'}}/>
+                        <Link to={'/'}>
+                            <HomeFilled style={{ fontSize: '200%'}}/>
+                        </Link>
                     </Col>
                     <Col span={16}>
-                        <h2>Home</h2>
+                        <Link to={'/'}>
+                            <h2>Home</h2>
+                        </Link>
                     </Col>
                 </Row>
                 <Row className={'item'}>

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HeartOutlined } from '@ant-design/icons';
 import { Card, Rate, Tag } from 'antd';
 import { collection, getDocs } from 'firebase/firestore';
@@ -8,6 +9,7 @@ const { Meta } = Card;
 
 const AppCard = ({ filters, search }) => {
   const [properties, setProperties] = useState([]);
+    const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -37,10 +39,14 @@ const AppCard = ({ filters, search }) => {
     setProperties(allProperties);
   }
 
+  const detailRouting = (id) => {
+      navigate(`/detail/${id}`);
+  }
+
   return (
       properties.map((data) => {
         return(
-          <div className='card' key={ data.id }>
+          <div className='card' key={ data.id } onClick={ () => detailRouting(data.id) }>
             <Card
                 style={{
                     width: 600,

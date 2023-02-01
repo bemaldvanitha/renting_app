@@ -1,8 +1,4 @@
 import React from "react";
-import AddPropertyScreen from "./screeens/AddPropertyScreen";
-import SignUpUser from "./components/SignUpUser";
-import SignUpHost from "./components/SignUpHost";
-import SignIn from "./components/SignIn";
 import {  } from './firebase/index';
 
 import CusHeader from "./components/Header";
@@ -11,9 +7,6 @@ function App() {
   return (
     <div>
         <CusHeader/>
-      <SignIn/>
-      <SignUpHost/>
-      <SignUpUser/>
     </div>
   );
 }

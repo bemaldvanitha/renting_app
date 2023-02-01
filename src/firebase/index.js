@@ -15,7 +15,8 @@ const firebaseConfig = {
     storageBucket: "rentingapp-82c50.appspot.com",
     messagingSenderId: "67149880698",
     appId: "1:67149880698:web:387e8af0b64a600cf84ac3",
-    measurementId: "G-G3VTNHJRCR"
+    measurementId: "G-G3VTNHJRCR",
+    
 };
 
 // Initialize Firebase

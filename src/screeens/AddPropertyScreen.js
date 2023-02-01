@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Col, Upload, message, Input, Button, Carousel, Image, Row } from 'antd';
 import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -6,6 +7,7 @@ import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
 import { db, storage } from '../firebase/index';
 
 import '../styles/AddPropertyScreen.css';
+import {getAuth} from "firebase/auth";
 
 const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -20,6 +22,8 @@ const beforeUpload = (file) => {
 };
 
 const AddPropertyScreen = () => {
+    const navigate = useNavigate();
+
     const [loading, setLoading] = useState(false);
     const [floorArea, setFloorArea] = useState('');
     const [bedrooms, setBedrooms] = useState('');
@@ -30,6 +34,14 @@ const AddPropertyScreen = () => {
     const [location, setLocation] = useState('');
     const [imageUploadCount, setImageUploadCount] = useState(1);
     const [uploadedImageUrls, setUploadedImageUrls] = useState([]);
+
+    useEffect(() => {
+        const auth = getAuth();
+        const currentUser = auth.currentUser;
+        if(currentUser === null){
+            navigate('/sign-in');
+        }
+    },[]);
 
     const handleChange = (info) => {
         setLoading(true);

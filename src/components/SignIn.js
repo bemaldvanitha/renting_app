@@ -41,7 +41,7 @@ function SignIn() {
           
         }}>
           
-           <Form style={{maskBorder:'solid', borderRadius:'20px', borderBlockColor:'white', backgroundColor:'#ffff', padding:'15px'}}>
+           <Form style={{maskBorder:'solid', borderRadius:'20px', borderBlockColor:'white', backgroundColor:'#ffff', padding:'15px', marginTop: '150px', width: '395.2px'}}>
            <h2 style={{color:'#ae2012', textAlign: 'center', margin: '20px'}}> Instant Stay</h2>
       <div className='input-feild-email' >
           <Input id={'email'} placeholder={'Username'} value={ email } onChange={(e) => setEmail(e.target.value)} />

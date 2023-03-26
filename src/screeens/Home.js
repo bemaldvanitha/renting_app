@@ -16,7 +16,7 @@ const HomeList = () => {
     }
   },[]);
 
-  return <div className='min-h-[1800px]'>
+  return <div className='min-h-[1800px]' style={{backgroundColor: '#e2e5fc'}}>
     <HomeBanner/>
   </div>;
 };

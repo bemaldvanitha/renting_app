@@ -80,7 +80,7 @@ function SignUpUser() {
                       placeholder={'Reenter your password'} />
                     <Input value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} id={'mobile-number'}
                       placeholder={'Enter your mobile number'} /> </Space></div>
-                <Button onClick={handleSignUp} style={{ backgroundColor: '#ae2012', color: 'white', width: '260px', alignContent: 'center' }}>Sign Up</Button></div>
+                <Button onClick={handleSignUp} style={{ backgroundColor: '#ae2012', color: 'white', width: '365px', alignContent: 'center' }}>Sign Up</Button></div>
               <Link to={'/sign-in'}>
                 <p className='new-account'>Already have an account</p>
               </Link>

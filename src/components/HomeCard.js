@@ -52,7 +52,7 @@ const AppCard = ({ filters, search }) => {
                     width: 600,
                 }}
                 cover={
-                  <img src={ data.imageUrls[0] } alt={ data.title } />
+                  <img className='image-size' src={ data.imageUrls[0] } alt={ data.title } />
                 }
                 actions={[
                   <Rate />,

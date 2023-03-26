@@ -35,21 +35,26 @@ function SignIn() {
     <div className="container" >
      
       <Content style={{
-          padding: '0 400px',
+          padding: '0 350px',
           margin: '100px',
+          
+          
         }}>
-           <Form style={{maskBorder:'solid', borderRadius:'10px', borderBlockColor:'white', backgroundColor:'#f6fff8', padding:'15px'}}>
+          
+           <Form style={{maskBorder:'solid', borderRadius:'20px', borderBlockColor:'white', backgroundColor:'#ffff', padding:'15px'}}>
+           <h2 style={{color:'#ae2012', textAlign: 'center', margin: '20px'}}> Instant Stay</h2>
       <div className='input-feild-email' >
-          <Input id={'email'} placeholder={'enter your email'} value={ email } onChange={(e) => setEmail(e.target.value)} />
+          <Input id={'email'} placeholder={'Username'} value={ email } onChange={(e) => setEmail(e.target.value)} />
       </div>
       <div className='input-feild-pw'>
-          <Input.Password id={'password'} placeholder={'enter your password'} value={ password }
+          <Input.Password id={'password'} placeholder={'Password'} value={ password }
                           onChange={(e) => setPassword(e.target.value)} />
       </div>
       <div className='signIn'>
-      <Button onClick={handleSubmit} style={{backgroundColor:'#ae2012',color:'white',width:'260px'}}>Sign In</Button>
+      <Button onClick={handleSubmit} style={{backgroundColor:'#ae2012',color:'white',width:'365px'}}>Sign In</Button>
           <Link to={'/sign-up'}>
-              <p className='new-account'>Create New Account</p>
+          <p className='new-account' style={{padding: '20px', textDecoration: 'none'}}>Don't have an account</p>
+
           </Link>
       
       </div>

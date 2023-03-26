@@ -12,7 +12,7 @@ import CusHeader from "./components/Header";
 function App() {
   return (
     <div>
-        <CusHeader/>
+        {/* <CusHeader/> */}
         <Routes>
             <Route path={'/'} element={<HomeList/>}/>
             <Route path={'/add-property'} element={<AddPropertyScreen/>}/>

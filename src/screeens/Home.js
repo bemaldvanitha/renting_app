@@ -4,6 +4,7 @@ import { getAuth } from 'firebase/auth';
 
 //import components
 import HomeBanner from '../components/HomeBanner'
+import CusHeader from '../components/Header';
 
 const HomeList = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const HomeList = () => {
   },[]);
 
   return <div className='min-h-[1800px]'>
+    <CusHeader/>
     <HomeBanner/>
   </div>;
 };

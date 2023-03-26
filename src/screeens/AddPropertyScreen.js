@@ -5,13 +5,10 @@ import { LoadingOutlined, CameraOutlined } from '@ant-design/icons';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { addDoc, serverTimestamp, collection } from 'firebase/firestore';
 import { db, storage } from '../firebase/index';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import swal from 'sweetalert';
-
-
 import '../styles/AddPropertyScreen.css';
 import {getAuth} from "firebase/auth";
+import CusHeader from '../components/Header';
 
 const beforeUpload = (file) => {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -124,14 +121,16 @@ const AddPropertyScreen = () => {
             navigate('/');
           }).catch((error) => {
             // console.error("Error adding document: ", error);
-            toast.error(error);
+            // toast.error(error);
 
           });
     }
 
     return(
+        <div>
+        <CusHeader/>
         <div className={'property-box'}>
-            <ToastContainer />
+
             <Row className={'title'}>
                 <Col span={20}>
                     <h1>Welcome {} Let's Post An Ad</h1>
@@ -219,6 +218,7 @@ const AddPropertyScreen = () => {
                 </Col>
             </Row>
 
+        </div>
         </div>
     )
 }

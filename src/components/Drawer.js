@@ -16,7 +16,7 @@ const CusDrawer = () => {
 
     return (
         <>
-            <Button type="primary" onClick={showDrawer} icon={ <MenuOutlined /> } size={20} style={{ backgroundColor: '#FAD02C' }} />
+            <Button onClick={showDrawer} icon={ <MenuOutlined /> } size={20} style={{ backgroundColor: 'white' }} />
             <Drawer title="Instant Stays" placement="left" onClose={onClose} open={open}>
                 <Row className={'item'}>
                     <Col span={4}>
@@ -26,7 +26,7 @@ const CusDrawer = () => {
                     </Col>
                     <Col span={16}>
                         <Link to={'/'}>
-                            <h2>Home</h2>
+                            <h4>Home</h4>
                         </Link>
                     </Col>
                 </Row>
@@ -35,7 +35,7 @@ const CusDrawer = () => {
                         <HeartFilled style={{ fontSize: '200%'}}/>
                     </Col>
                     <Col span={16}>
-                        <h2>Favorite</h2>
+                        <h4>Favorite</h4>
                     </Col>
                 </Row>
                 <Row className={'item'}>
@@ -43,7 +43,7 @@ const CusDrawer = () => {
                         <BellFilled style={{ fontSize: '200%'}}/>
                     </Col>
                     <Col span={16}>
-                        <h2>Notification</h2>
+                        <h4>Notification</h4>
                     </Col>
                 </Row>
                 <Row className={'item'}>
@@ -51,7 +51,7 @@ const CusDrawer = () => {
                         <MessageFilled style={{ fontSize: '200%'}}/>
                     </Col>
                     <Col span={16}>
-                        <h2>Message</h2>
+                        <h4>Message</h4>
                     </Col>
                 </Row>
                 <Row className={'item'}>
@@ -59,7 +59,7 @@ const CusDrawer = () => {
                         <IdcardFilled style={{ fontSize: '200%'}}/>
                     </Col>
                     <Col span={16}>
-                        <h2>Profile</h2>
+                        <h4>Profile</h4>
                     </Col>
                 </Row>
             </Drawer>

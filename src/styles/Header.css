@@ -1,10 +1,14 @@
 .header {
     position: sticky;
     top: 0;
-    zIndex: 1;
+    z-index: 500;
     width: 100%;
-    background: wheat;
+    background: #ae2012;
     padding-left: 10px;
+    padding: 15px;
+    font-size: 20px;
+    position: -webkit-sticky;
+
 }
 
 .header-items {
@@ -14,8 +18,18 @@
 
 .title {
     font-family: "Comic Sans MS", serif;
+    display: inline-table !important;
 }
 
 .post-ad-button {
     background: lightgrey;
 }
+
+Link {
+    text-decoration: none !important;
+}
+
+h1 {
+
+}
+

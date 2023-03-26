@@ -12,16 +12,18 @@ const CusHeader = () => {
         <>
             <div className={'header'}>
                 <Row className={'header-items'}>
-                    <Col span={4}>
+                    <Col span={1}>
                         <CusDrawer/>
                     </Col>
-                    <Col span={4}>
+                    {/* <Col span={4}>
                         <Link to={'/'}>
                             <HomeFilled style={{ fontSize: '200%' }}/>
                         </Link>
-                    </Col>
-                    <Col span={8}>
+                    </Col> */}
+                    <Col span={8} >
+                    <Link to={'/'}>
                         <h1 className={'title'}>Instant Stays</h1>
+                    </Link>
                     </Col>
                     <Col span={4}>
                         <Link to={'/add-property'}>

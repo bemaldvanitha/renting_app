@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Card, Carousel, Image, Button } from 'antd';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/index';
+import CusHeader from '../components/Header';
 
 const { Meta } = Card;
 const DetailsScreen = () => {
@@ -32,6 +33,7 @@ const DetailsScreen = () => {
 
   return (
       <div>
+        <CusHeader/>
         <center>
           { Object.keys(property).length !== 0 ?
               <Card

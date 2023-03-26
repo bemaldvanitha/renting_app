@@ -61,10 +61,11 @@ const DetailsScreen = () => {
                       description={property.description}
                   />
                   <p> 
-                  <Button type="primary">Price : {property.price} LKR</Button>
+                  <Button style={{color:'#ae2012', margin: '15px 0 0 0'}}>Price : {property.price} LKR</Button>
                     </p>
-                  <p>Location : {property.location}</p>
-                  <p>Bedrooms : {property.bedrooms}  |   Bathrooms : {property.bathrooms} </p>
+
+                  <p> <Button>Location : {property.location}</Button></p>
+                  <p><Button>Bedrooms : {property.bedrooms}  |   Bathrooms : {property.bathrooms}</Button> </p>
                   
                 </Card> : <div></div>
           }

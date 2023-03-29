@@ -15,7 +15,7 @@ function App() {
         {/* <CusHeader/> */}
         <Routes>
             <Route path={'/'} element={<HomeList/>}/>
-            <Route path={'/add-property'} element={<AddPropertyScreen/>}/>
+            <Route path={'/add-property'} element={<AddPropertyScreen/>} />
             <Route path={'/detail/:id'} element={<DetailsScreen/>}/>
             <Route path={'/sign-in'} element={<SignIn/>}/>
             <Route path={'/sign-up'} element={<SignUp/>}/>

@@ -34,11 +34,10 @@ const DetailsScreen = () => {
   return (
       <div>
         <CusHeader/>
-        <center>
+        <center style={{backgroundColor: '#e2e5fc' }}>
           { Object.keys(property).length !== 0 ?
               <Card
-                  style={{
-                      width: 900,
+                  style={{  width: 900, paddingTop: '25px', borderRadius: '50'
 
                   }}
                   cover={
@@ -47,6 +46,7 @@ const DetailsScreen = () => {
                               return(
                                   <div key={img}>
                                       <Image
+                                          
                                           width={600}
                                           height={400}
                                           src={img}
@@ -68,6 +68,9 @@ const DetailsScreen = () => {
 
                   <p> <Button>Location : {property.location}</Button></p>
                   <p><Button>Bedrooms : {property.bedrooms}  |   Bathrooms : {property.bathrooms}</Button> </p>
+                  <p><Button style={{backgroundColor: '#ae2012', color: '#ffff'}}>Reserve</Button></p>
+
+                  
                   
                 </Card> : <div></div>
           }

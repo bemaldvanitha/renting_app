@@ -127,17 +127,17 @@ const AddPropertyScreen = () => {
     }
 
     return(
-        <div>
+        <div className='addPropertyMainDiv' >
         <CusHeader/>
-        <div className={'property-box'}>
+        <div className={'property-box'} style={{backgroundColor: '#fffff'}}>
 
-            <Row className={'title'}>
-                <Col span={20}>
-                    <h1>Welcome {} Let's Post An Ad</h1>
+            <Row className={'title'} style={{    width: '100%' ,textAlign: '-webkit-center' , paddingTop: '30px'}}>
+                <Col span={20} >
+                    <h3>Welcome {} Let's Post An Ad</h3>
                 </Col>
             </Row>
 
-            <Row className={'image-uploader'}>
+            <Row className={'image-uploader'} style={{    width: '100%' ,textAlign: '-webkit-center', paddingTop: '8px'}}>
                 <Col span={14}>
                         <Upload
                             name="avatar"
@@ -145,6 +145,8 @@ const AddPropertyScreen = () => {
                             className="avatar-uploader"
                             beforeUpload={beforeUpload}
                             onChange={handleChange}
+
+                            
                         >
                             { uploadButton }
                         </Upload>
@@ -212,7 +214,7 @@ const AddPropertyScreen = () => {
 
             <Row className={'button'}>
                 <Col span={14}>
-                    <Button type="primary" onClick={ postAd } style={{ background: "#FAD02C"}}>
+                    <Button type="primary" onClick={ postAd } style={{ backgroundColor:'#ae2012' ,width: '100%' ,textAlign: '-webkit-center'}}>
                         Post
                     </Button>
                 </Col>

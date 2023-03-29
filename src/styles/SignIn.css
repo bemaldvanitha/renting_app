@@ -27,7 +27,15 @@
     text-align: center;
   }
   .input-feild{
-   padding-bottom: 30px;
+   padding-bottom: 30px !important;
+  }
+
+  .input-feild-host{
+    padding-bottom: 46px !important;
+  }
+
+  .input-feild-email-signUpHost{
+    padding-bottom: 42px !important;
   }
   .signToggle{
     text-align: center;

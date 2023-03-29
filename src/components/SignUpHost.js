@@ -62,7 +62,7 @@ function SignUpHost() {
             <Form style={{ maskBorder: 'solid', borderRadius: '10px', borderBlockColor: 'white', backgroundColor: '#f6fff8', padding: '15px' }}>
               <div className='input-feild-email' >
                 <h3>Sign Up as a Host</h3>
-                <div className='input-feild' >
+                <div className='input-feild-host' >
                 <Space
                     direction="vertical"
                     size="middle"
@@ -78,10 +78,10 @@ function SignUpHost() {
                   placeholder={'Enter your password'} />
                 <Input.Password value={reEnterPassword} onChange={e => setReEnterPassword(e.target.value)} id={'re-password'}
                   placeholder={'Reenter your password'} />
-                <Input value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} id={'mobile-number'}
+                <Input  value={mobileNumber} onChange={e => setMobileNumber(e.target.value)} id={'mobile-number'}
                   placeholder={'Enter your mobile number'} /></Space></div>
 
-                <Button onClick={handleSignUp} style={{backgroundColor:'#ae2012',color:'white',width:'260px'}}>Sign Up</Button></div>
+                <Button onClick={handleSignUp} style={{backgroundColor: '#ae2012', color: 'white', width: '365px', alignContent: 'center' }}>Sign Up</Button></div>
               <Link to={'/sign-in'}>
                 <p className='new-account'>Already have an account</p>
               </Link>

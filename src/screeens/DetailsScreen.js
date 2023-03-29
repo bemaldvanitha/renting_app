@@ -68,7 +68,7 @@ const DetailsScreen = () => {
 
                   <p> <Button>Location : {property.location}</Button></p>
                   <p><Button>Bedrooms : {property.bedrooms}  |   Bathrooms : {property.bathrooms}</Button> </p>
-                  <p><Button style={{backgroundColor: '#ae2012', color: '#ffff'}}>Reserve</Button></p>
+                  <p><Button style={{backgroundColor: '#03fc66', color: '#ffff'}}>Contact Renter</Button></p>
 
                   
                   

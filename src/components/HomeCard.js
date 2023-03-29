@@ -23,6 +23,8 @@ const AppCard = ({ filters, search }) => {
       const data = { ...doc.data() };
       data.id = doc.id;
 
+
+      console.log(data);
       const cityFilter = filters.city;
       const priceFilters = filters.price.split('-');
 
